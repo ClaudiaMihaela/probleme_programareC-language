@@ -1,0 +1,304 @@
+PROBLEMA 1
+//algoritm media aritmetica a trei numere reale
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+
+float ma(float, float, float);
+
+int main()
+{
+        float a, b, c;
+        float media_aritmetica;
+        printf("\n Introduceti primul numar: ");
+        scanf("%f", &a);
+        printf("\n Introduceti al doilea numar: ");
+        scanf("%f", &b);
+        printf("\nIntroduceti al treilea numar: ");
+        scanf("%f", &c);
+        media_aritmetica = ma(a, b, c);
+        printf("\n\t Media artimetica: %f", media_aritmetica);
+        return 0;
+
+}
+
+
+float ma(float a, float b, float c)
+{
+        float medie;
+        medie = (a + b + c) / 3;
+        return medie;
+}
+
+
+
+
+
+
+PROBLEMA 2
+//media geometrica a doua nr intregi
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <cmath>
+
+
+float media_g(int, int);
+
+int main()
+{
+        int a, b;
+        float mg;
+        scanf("%d", &a);
+        scanf("%d", &b);
+        mg = media_g(a, b);
+        printf("\n\t Media geometrica: %f", mg);
+        return 0;
+}
+
+float media_g(int a, int b)
+{
+        float media;
+        media = sqrt(a * b);
+        return media;
+}
+
+
+
+
+
+PROBLEMA 3
+/variabila intreaga care este initializata cu valori constante
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <iostream>
+using namespace std;
+
+#define a 10
+
+int main()
+{
+        cout << a;
+        return 0;
+}
+
+
+
+
+
+
+
+
+PROBLEMA 4
+/*definirea unui sir de caractere care este afisat cu cout
+                                   -am definit inca un sir de caractere si am comparat lungimea celor doua siruri, afisand un mesaj care anunta ce sir are lungimea mai mare
+                                   */
+
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+char s[101], b[101];
+
+void citire_s();
+void afisare_s();
+void citire_b();
+void afisare_b();
+void lung_max();
+
+
+int main()
+{
+ 
+        citire_s();
+        afisare_s();
+        citire_b();
+        afisare_b();
+        lung_max();
+        
+        return 0;
+}
+
+void citire_s()
+{
+        
+        cout << "\nscrieti sirul: ";  //am citit sirul de caractere s
+        cin.getline(s,101);
+        
+
+}
+
+void afisare_s()
+{
+        cout << "\nsirul s este: " << s << endl; //am afisat sirul s
+}
+
+void citire_b()
+{
+        
+        cout << "\nscrieti sirul b: ";
+        cin.getline(b, 101);
+        
+}
+
+void afisare_b()
+{
+        cout << "\nsirul b este: " << b; // am afisat sirul b
+
+}
+
+void lung_max()
+{
+        if (strlen(s) > strlen(b)) cout << "\nsirul s are lungime mai mare decat sirul b";
+        else cout << "\nsirul b are lungime mai mare decat sirul a";
+}
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 6
+// definirea unor constante simbolice de tipuri diferite utilizand operatorul "<<" si fluxul cout
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <iostream>
+
+using namespace std;
+
+#define char "tema la programare" // am definit constanta de tip char
+#define a 10 //am definit constanta de tip int
+#define b 10.3 // am definit constanta de tip double
+
+void afisare_char();
+void afisare_a();
+void afisare_b();
+
+
+int main()
+{
+        afisare_char();
+        afisare_a();
+        afisare_b();
+        return 0;
+
+}
+
+void afisare_char()
+{
+        cout << "constanta de tip char este: ";
+        cout << char << "\n";
+}
+
+void afisare_a()
+{
+        cout << "constanta de tip int este: ";
+        cout << a << "\n";
+
+}
+
+void afisare_b()
+{
+        cout << "constanta de tip double este: ";
+        cout << b << "\n";
+}
+
+
+
+
+
+
+
+
+
+PROBLEMA 7
+// rezultatul operatiei 1/a+1/b+1/c
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+
+
+float a, b, c; // am declarat global variabilele a,b,c
+float s; // am declarat global suma
+
+int A, B, C;
+float s_nr_int;
+
+float cit_float();
+float operatie(float, float, float); // am predefinit functiile de citire,afisare si de efectuare a operatiei de adunare si impartire 
+void afisare();
+
+
+
+int cit_int(); //prototip de functie care citeste nr intregi
+float operatie_nr_int(int, int, int); //prototip de functie care efectueaza suma dintre rapoartele de nr intregi
+void afisare_nr_int(); // afisarea celei de-a doua sume
+
+
+int main()
+{
+        
+        a = cit_float();
+        b = cit_float(); // am citit numerele reale
+        c = cit_float();
+        s = operatie(a, b, c);
+        afisare(); // am afisat prima suma
+        A = cit_int();
+        B = cit_int(); // am citit numerele intregi
+        C = cit_int();
+        s_nr_int = operatie_nr_int(A, B, C);
+        afisare_nr_int(); // am afisat a doua suma
+
+
+        
+
+
+        
+}
+float cit_float() // functie pentru citirea numerelor reale
+{
+        float nr;
+        printf("\nIntroduceti numarul real: ");
+        scanf("%f", &nr);
+        return nr;
+}
+
+float operatie(float a, float b, float c) // functie pentru suma dintre rapoartele numerelor reale
+{
+        float sum;
+        sum = (1 / a) + (1 / b) + (1 / c); //am realizat suma dintre aceste 3 impartiri
+        return sum;
+}
+
+void afisare() // functie pentru afisarea celei de-a doua functii
+{
+        
+        printf("\n\t suma este: %f", s);
+}
+
+int cit_int() // functie pentru citirea numerelor intregi
+{
+        int numar;
+        printf("\nIntroduceti numarul intreg: ");
+        scanf("%d", &numar);
+        return numar;
+}
+
+float operatie_nr_int(int A, int B, int C) //functie pentru suma dintre rapoartele numerelor intregi
+{
+        float s_int;
+        s_int =(1 / (float)A) + (1 / (float)B) +(1 / (float)C);
+        return s_int;
+}
+
+void afisare_nr_int() // functie pentru afisarea celei de-a doua functii
+{
+        printf("\n\t suma numerelor intregi este: %f", s_nr_int);
+}

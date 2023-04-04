@@ -1,0 +1,393 @@
+PROBLEMA 1
+//algoritm care citeste elementele a doua tablouri unidimensionale si afiseaza produsul scalar scalar. Ambele functii vor folosi pointeri
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+#define DIM 20
+
+void citire(int  *a, int dim, int*b); //prototip de functie care citeste elem. tabloului unidimensional
+int produs_s(int* a, int dim, int* b); //prototip de functie care calculeaza produsul scalar
+
+int main()
+{
+        int a[DIM],dim, b[DIM],produs=0;
+        int* ppr;
+        printf("\nIntroduceti dim: ");
+        scanf("%d", &dim);
+        if (dim > DIM)
+        {
+                printf("\nDimensiune prea mare");
+                return 1;
+        }
+        citire(a, dim,b);
+        produs = produs_s(a, dim, b);
+        ppr = &produs;
+        printf("\nProdusul scalar este: %d", *ppr);
+
+}
+
+void citire(int *a, int dim, int *b)
+{
+        int i,s=0,j;
+        printf("\nElementele lui a sunt: ");
+        for (i = 0; i < dim; i++)
+
+        {
+                printf("\na[%d]= ", i + 1);
+                scanf("%d", a + i); //am citit elem. primului tablou unidim.
+        }
+        //for (i = 0; i < dim; i++)
+                //printf("\nElementele din a: %d ", *a++);
+        printf("\nIntroduceti elementele lui b: ");
+        for(int j=0;j<dim;j++)
+        {
+                printf("\nb[%d]= ", j + 1);
+                scanf("%d", b + j); //am citit elem. celui de-al doilea tablou unidim.
+        }
+        //for (j = 0; j < dim; j++)
+                //printf("\nElementele din b: %d ", *b++);
+
+}
+
+int produs_s(int* a, int dim, int* b)
+{
+        int i, j, s = 0;
+        for (i = 0; i < dim; i++)
+        {
+                for (j = 0; j < dim; j++)
+                        if (i == j) s = s + (a[i] * b[j]); //am calculat produsul scalar
+        }
+        return s; //am returnat produsul scalar
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 2
+﻿//- algoritm care genereaza aleatoriu 20 de numere întregi cu valori mai mici decât 50 si le stocheaza intr-un tablou
+//Să se scrie o funcţie care elimină din tabloul unidimensional creat numerele impare.Funcţia va utiliza pointeri
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+
+
+void noulTab(int *, int); //prototip de functie care modifica tabloul initial
+
+
+
+int main()
+{
+    int lower = 0, upper = 50, count = 20;
+    
+    srand(time(0)); 
+
+    int i, j;
+    int a[20];
+    printf("\nTabloul initial: ");
+    for (i = 0; i < count; i++) {
+        int num = (rand() % (upper - lower + 1)) + lower; //am generat 20 de valori aleatorii mai mici decat 50
+        a[i] = num; //am creat tabloul cu aceste valori aleatorii
+
+        printf("%d ", a[i]);//am afisat tabloul initial
+    }
+
+    noulTab(a,count);
+   
+
+    return 0;
+}
+
+void  noulTab(int* a, int count)//functie care elimina elementele impare din tablou
+{
+    int i, j;
+    
+    printf("\nDupa modificare: ");
+    i = 0;
+    while (i < count)
+        if (a[i] % 2 != 0)
+        {
+            for (j = i + 1; j < count; j++) //am eliminat din tablou elementele impare
+                a[j-1] = a[j];
+            count--;
+
+        }
+        else i++;
+        
+    for (i = 0; i < count; i++)
+        printf("%d ", *(a+i)); //am afisat noul tablou
+   
+   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 3
+//-algoritm care citeste de la tastatura numere reale ce vor fi stocate intr-un tablou unidimensional
+//Sa se scrie o functie care copiaza intr-un alt tablou valorile mai mari decat valoarea medie. Se vor folosi pointeri
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+#define DIM 20
+
+void noulTab(float*, int, float*);//prototip de functie care copiaza in al doilea tablou valorile mai mari decat valoarea medie
+
+int main()
+{
+        int n,i;
+        float a[DIM],b[DIM];
+        printf("\nIntroduceti dimensiunea: ");
+        scanf("%d", &n);
+        if (n > DIM)
+        {
+                printf("\nDimensiunea este prea mare!");
+                return 1;
+        }
+        printf("\nIntroduceti elementele: ");
+        for (i = 0; i < n; i++)
+        {
+                printf("\na[%d]= ", i + 1);
+                scanf("%f", &a[i]);
+        }
+        printf("\nElementele primului tablou sunt: ");
+        for (i = 0; i < n; i++)
+                printf("\n%f ", *(a+i));//am afisat elementele primului tablou
+        noulTab(a, n,b);
+
+        return 0;
+
+}
+
+void noulTab(float* a, int n, float *b)//functie care copiaza in al doilea tablou valorile m mari decat valoarea medie din primul tablou
+{
+        float s = 0, valmed = 0;
+        int i,m=0,j=0;
+        for (i = 0; i < n; i++)
+                s = s + a[i];
+        valmed = s / n;//am calculat valoarea medie
+        printf("\nValoarea medie este: %f", valmed);
+        for (i = 0; i < n; i++)
+                if (a[i] > valmed)
+                {
+                        b[j] = a[i];
+                        m++; //am copiat in al doilea tablou valorile mai mari decat valoarea medie
+                        j++;
+                        //printf("\n%f", b[i]);
+
+                }
+        printf("\nElementele din al doilea tablou sunt: ");
+        for (j = 0; j <m; j++)
+                printf("\n%f ", *(b+j));//am afisat elementele celui de-al doilea tablou
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 4
+//algoritm care citeste de la tastatura un sir de caractere si elimina caracterele ce se repeta
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <string.h>
+#define DIM 20
+
+void eliminare(char*);//prototip de functie care elimina caracterele ce se repeta
+
+int main()
+{
+        char s[DIM];
+        printf("\nIntroduceti sirul de caractere: ");
+        scanf("%s", &s);
+        printf("\nSir: %s", s);
+        eliminare(s);
+        return 0;
+}
+void eliminare(char* s)//functie care elimina din functie caracterele care se repeta
+{
+        int i = 0, j = 0, k;
+        for (i = 0; i < strlen(s); i++)
+        {
+                for (j = i + 1; j < strlen(s);j++)
+                
+                        if (s[i] == s[j]) { //daca caracterul este egal cu cel de pe pozitia urmatoare urmeaza sa fie eliminat
+                                for (k = j; k < strlen(s); k++)
+                                
+                                        s[k] = s[k + 1];
+                                
+                        }
+                        else  j++; 
+                
+        }
+
+        
+
+        printf("\nSirul final este: %s", s);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 5
+﻿//algoritm care citeste de la tastatura doua siruri de caractere afişează numărul de 
+//caractere prin care ele diferă(adică numărul de caractere care există în primul şi nu există în al doilea + numărul de caractere care există în al doilea şi nu există în primul).
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX 20
+
+void afisare_cnt(char*, char*);
+int main()
+{
+        int i;
+        char s[MAX], t[MAX];
+        printf("\nIntroduceti primul sir de caractere: ");
+        scanf("%s", &s);
+        printf("\nIntroduceti al doilea sir de caractere: ");
+        scanf("%s", &t);
+        afisare_cnt(s, t);
+        return 0;
+}
+void afisare_cnt(char *s, char *t) //prototip de functie care afiseaza cate caractere nu se gasesc in primul sir in al doilea sir
+{
+
+        int i, j,cnt1=0,cnt=0,nrcom1=0,nrcaract1=0,nrcom2=0,nrcaract2=0;
+        if (strcmp(s, t) == 0) printf("\nSirurile sunt egale, deci contorul este 0 fiindca ele nu difera prin niciun caracter");
+        else if (strlen(s) > strlen(t))//primul caz, cel in care primul sir are lungime mai mare decat al doilea
+        {
+                for (i = 0; i < strlen(t); i++)
+
+                {
+                        if (strchr(s, *(t + i)) == NULL) cnt++; //am calculat cate caract nu se gasesc in primul
+                }
+                int* p;
+                p = &cnt;
+                printf("\n %d caractere nu se gasesc in primul sir", *p);
+                nrcom1 = strlen(t) - cnt;//am calculat cate caractere comune au sirurile
+                nrcaract1 = strlen(s) - nrcom1;//am calculat cate caract nu se gasesc in al doilea
+                int* p1;
+                p1 = &nrcaract1;
+                printf("\n %d caractere nu se gasesc in al doilea sir", *p1);//am afisat folosind pointeri
+        }
+        else
+        
+         if(strlen(s)<strlen(t))
+        {
+                 for (i = 0; i < strlen(s); i++)
+                 {
+                         if (strchr(t, *(s + i)) == NULL) cnt1++;////am calculat cate caract nu se gasesc in primul
+                 }
+                 
+                 int* pf;
+                 pf = &cnt1;
+                 printf("\n %d caractere nu se gasesc in primul sir", *pf);
+                 nrcom2 = strlen(s) - cnt1;//am calculat cate caractere comune au sirurile
+                 nrcaract2 = strlen(t) - nrcom2;//am calculat cate caractere nu se gasesc in al doilea sir
+                 int* pf1;
+                 pf1 = &nrcaract2;
+                 printf("\n %d caractere nu se gasesc in al doilea sir", *pf1);//am afisat folosind pointeri
+
+        }     
+        
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 6
+/*
+Să se scrie o aplicaţie C/C++ care citeşte de la tastatură un şir de caractere. Să se scrie o funcţie care 
+afişează caracterele ce compun şirul şi numărul de apariţii ale fiecăruia, folosind pointeri.
+
+*/
+
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+void afisare(char*);//prototip de functie care afiseaza ce caractere apar si numarul lor de aparitii
+
+int main()
+{
+	char a[101];
+	cout << "Sirul este: ";
+	cin.get(a, 101);//am citit sirul de caractere
+	afisare(a);
+	return 0;
+}
+
+void afisare(char* a)//functie care afiseaza ce caractere apar si numarul lor de aparitii
+{
+	int fa[127] = { 0 };
+	for (int i = 0; i < strlen(a); i++)
+		fa[a[i]]++; // am calculat frecventele literelor
+
+	for (char c = 'a'; c <= 'z'; c++)
+		if (fa[c] != 0) cout << "\nCaracterul "<<c<<" apare de " <<fa[c]<<" ori"; //am afisat atat caracterele care apar in sir, cat si frecventele acestora
+}

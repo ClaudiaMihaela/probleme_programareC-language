@@ -1,0 +1,428 @@
+PROBLEMA 1
+//algoritm ce afiseaza valoarea polinomului de gradul 3
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+
+float pol_gr3(float, float, float, float); // prototip de functie pentru a calcula polinomul de gradul 3
+
+int main()
+{
+        float a, b, c, x, rez;
+        printf("\n Introduceti x: ");
+        scanf("%f", &x);
+        printf("\n Introduceti a: ");
+        scanf("%f", &a);
+        printf("\n Introduceti b: ");
+        scanf("%f", &b);
+        printf("\n Introduceti c: ");
+        scanf("%f", &c);
+        rez = pol_gr3(x, a, b, c);
+        printf("\n\t Valoarea polinomului de grad 3 este: %f", rez);
+
+
+}
+
+float pol_gr3(float x, float a, float b, float c) // functie pentru a calcula polinomul de gr 3
+{
+        float val_a, val_b, val_c,polinom;
+        val_a = a * (x * x * x);
+        val_b = b * (x * x);
+        val_c = c * x;
+        polinom = val_a + val_b + val_c;
+        return polinom;
+
+}
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 2
+// algoritm ce calculeaza aria unui triunghi
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <math.h>
+
+float semiperimetru(int, int, int); // prototip de functie pentru calcularea semiperimetrul
+float arie_tr(int, int, int, float); // prototip de functie pentru calcularea ariei triunghilui
+
+int main()
+{
+    int a, b, c;
+    float p,rez;
+    printf("\n Introduceti a: ");
+    scanf("%d", &a);
+    printf("\n Introduceti b: ");
+    scanf("%d", &b);
+    printf("\n Introduceti c: ");
+    scanf("%d", &c);
+    p = semiperimetru(a, b, c);
+    rez = arie_tr(a, b, c,p);
+    printf("\n\t Aria triunghiului este: %f", rez);
+
+
+}
+
+float semiperimetru(int a, int b, int c) // functie care calculeaza semiperimetrul triunghiului
+{
+    float s_perimetru;
+    s_perimetru = (a + b + c) / 2;
+    return s_perimetru;
+
+}
+
+float arie_tr(int a, int b, int c, float p) // functie care calculeaza aria triunghiului
+{
+    float aria;
+    aria = sqrt(p * (p - a)*(p - b)*(p - c)); // am aplicat formula lui Heron
+    return aria;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 3
+// algoritm ce afiseaza valorile bitilor
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+#include<stdio.h>
+
+int main()
+{
+        unsigned char ch;
+        printf("\nCaracterul=");
+        scanf("%c", &ch);
+        short int n = (short int)ch;   // A=41h --> 01000001
+        int tab[16] = {}, i = 0;
+        while (n != 0) {
+                tab[i] = n % 2;
+                i++;
+                n = n >> 1;
+        }
+        for (int i = sizeof(char) * 8 - 1; i >= 0; i--)
+                printf("%d", tab[i]);
+        return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 5
+// algoritm ce calculeaza nr de zero-uri din reprezentarea binara a unui numar
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+int TransfBaza2(int);
+int CntZero(int);
+int nr, rez;
+
+int main()
+{
+        int a,conversie_binar,cnt;
+        printf("\nIntroduceti numarul a: ");
+        scanf("%d", &a);
+        conversie_binar = TransfBaza2(a);
+        printf("\n Binarul este: %d", conversie_binar);
+        cnt = CntZero(conversie_binar);
+        printf("\n Numarul de zerouri este: %d", cnt);
+        return 0;
+}
+
+int TransfBaza2(int a)
+{
+        
+        while (a > 0)
+        {
+                nr = nr * 10 + (a % 2);
+                a = a / 2;
+        }
+
+        while (nr > 0)
+        {
+                rez = rez * 10 + nr % 10;
+                nr = nr / 10;
+        }
+        return rez;
+}
+
+int CntZero(int conversie_binar)
+{
+        int contor = 0;
+        while (conversie_binar > 0)
+        {
+                if (conversie_binar % 10 == 0) contor++;
+                conversie_binar = conversie_binar / 10;
+                
+        }
+        return contor;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 7
+/* algoritm ce realizeaza operatiile de adunare, scadere, inmultire 
+si impartire cu 2 numere reale, dupa care afiseaza rezultatele rotunjite la valori intregi
+La final, am afisat valorile minime dintre cele 2 numere*/
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <math.h>
+
+float suma(float, float);
+float diferenta(float, float);
+float produs(float, float);
+float impartire(float, float);
+float suma_int(float, float);
+float diferenta_int(float, float);
+float produs_int(float, float);
+float impartire_int(float, float);
+float minim(float, float);
+
+int main()
+{
+        float x, y,val_minima;
+        float suma_r, dif_r, produs_r, imp_r;
+        float suma_i, dif_i, produs_i, imp_i;
+        
+        printf("Introduceti primul numar: ");
+        scanf("%f", &x);
+        printf("Introduceti al doilea numar: ");
+        scanf("%f", &y);
+        
+        suma_r= suma(x, y);
+        printf("\nSuma dintre x si y este %f", suma_r);
+        dif_r = diferenta(x, y);
+        printf("\nDiferenta dintre x si y este %f", dif_r);
+        produs_r = produs(x, y);
+        printf("\nProdusul dintre x si y este %f", produs_r);
+        imp_r = impartire(x, y);
+        printf("\nImpartirea dintre x si y este %f", imp_r);
+        suma_i = suma_int(x, y);
+        printf("\nRotunjirea la valori intregi a sumei este %0.0f", suma_i);
+        dif_i = diferenta_int(x, y);
+        printf("\nRotunjirea la valori intregi a diferentei este %0.0f", dif_i);
+        produs_i = produs_int(x, y);
+        printf("\nRotunjirea la valori intregi a produsului este %0.0f", produs_i);
+        imp_i = impartire_int(x, y);
+        printf("\nRotunjirea la valori intregi a impartirii este %0.0f", imp_i);
+        val_minima = minim(x, y);
+        printf("\nValoarea minima dintre numerele citite este %f", val_minima);
+        return 0;
+}
+float suma(float x, float y)
+{
+        return x + y;
+}
+float diferenta(float x, float y)
+{
+        if (x > y)
+                return x - y;
+        else return y - x;
+}
+
+float produs(float x, float y)
+{
+        return (x * y);
+}
+float impartire(float x, float y)
+{
+        if (x > y) return (x / y);
+        else return (y / x);
+}
+
+float suma_int(float x, float y)
+{
+        float  s;
+        s = (x + y) - (int)(x + y);
+        if (s > 0.5) return (int)(x + y + 1);
+        else return (int)(x + y);
+        
+}
+float diferenta_int(float x, float y)
+{
+        float d;
+        if (x > y) 
+        {
+                d = (x - y) - (int)(x - y);
+        if (d > 0.5) return (int)(x - y + 1);
+        else return (int)(x - y);
+        }
+
+        else if(y>x)
+        {
+                d = (y - x) - (int)(y - x);
+        if (d > 0.5) return (int)(y - x + 1);
+        else return (int)(y - x);
+        }
+}
+float produs_int(float x, float y)
+{
+        float p = 0;
+        p = (x * y) - (int)(x * y);
+
+        if (p > 0.5)
+        {
+                return (int)(x * y + 1);
+        }
+        else
+        {
+                return (int)(x * y);
+        }
+}
+float impartire_int(float x, float y)
+{
+        float i= 0;
+        if (x > y)
+        {
+                i = (x / y) - (int)(x / y);
+                if (i > 0.5) return (int)(x / y + 1);
+                else return (int)(x / y);
+        }
+        else if (y > x)
+        {
+                i = (y - x) - (int)(y - x);
+                if (i > 0.5) return (int)(y / x + 1);
+                else return (int)(y / x);
+
+        }
+        
+
+}
+
+
+float minim(float x, float y)
+{
+        if (x > y) return y;
+        
+        else return x;
+        
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 9
+// algoritm ce determina aria cercului daca nr sunt egale sau aria dreptunghiului daca nu sunt egale 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#define PI 3.14
+
+
+int aria_drept(int, int); // prototip de functie pentru determinarea ariei dreptunghiului
+float aria_cerc(int, int); // prototip de functie pentru determinarea ariei cercului
+
+
+
+int main()
+{
+        int a, b, rezultat;
+        float rez;
+        printf("\n Introduceti numarul a: ");
+        scanf("%d", &a);
+        printf("\n Introduceti numarul b: ");
+        scanf("%d", &b);
+
+        
+        if (a == b) // daca a si b sunt egale am afisat aria cercului
+        {
+                rez = aria_cerc(a, b);
+                printf("\n\t Aria cercului este: %f", rez);
+        }
+
+        else // daca si b sunt diferite am afisat aria dreptunghiului
+        {
+                rezultat = aria_drept(a, b); 
+                printf("\n\t Aria dreptunghiului este: %d", rezultat);
+        }
+
+}
+
+
+
+int aria_drept(int a, int b)
+{
+        int aria = 0;
+        aria = a * b;
+        return aria;
+}
+
+
+float aria_cerc(int a, int b)
+{
+        int arie = 0;
+        arie = PI * a * a;
+        return arie;
+
+        
+}
+
+

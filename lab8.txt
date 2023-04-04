@@ -1,0 +1,623 @@
+PROBLEMA 1
+//algoritm ce calculeaza valoarea medie dintr-un tablou unidimensional
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+#define DIM 20
+
+float valMed(int x[], int dim);
+int i, dim; 
+int main()
+{
+        
+        int x[DIM];
+        printf("/nIntroduceti dim: ");
+        scanf("%d", &dim); //am citit dimensiunea tabloului unidim.
+        if (dim > DIM) return 1;
+        for(i=0;i<dim;i++)
+        {
+                printf("\tx[%d]= ", i);
+                scanf("%d", &x[i]); //am citit elementele tabloului unidim.
+
+        }
+        printf("\n Valoarea este: %3f\n", valMed(x, dim)); //am afisat valoarea medie
+}
+
+float valMed(int x[], int n)
+{
+        int i;
+        float sum = 0.0f;
+        for (i = 0; i < n; i++)
+                sum += x[i]; //am calculat valoarea medie
+        return sum/n;
+}
+
+
+
+
+
+
+
+
+
+﻿PROBLEMA 10
+//algoritm care construieşte într-o funcţie un alt tablou unidimensional în care se vor stoca resturile împărţirii
+//elementelor primului tablou la numărul elementelor pozitive din acesta.
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include <climits>
+#define DIM 20
+
+void tabNou(int a[], int dim); // prototip de functie pt a calcula numarul de elemente pozitive si afiseaza restul impartirii elementelor din primul tablou la numarul elementelor pozitive
+
+int main()
+{
+    int a[DIM], dim, i, minim;
+    printf("\nIntroduceti dimensiune: ");
+    scanf("%d", &dim);
+    if (dim > DIM) return 1;
+    printf("\nIntroduceti elementele tabloului: ");
+    for (i = 0; i < dim; i++)
+    {
+        printf("\na[%d]= ", i);
+        scanf("%d", &a[i]);
+    }
+    tabNou(a, dim);
+  
+    return 0;
+}
+
+void tabNou(int a[], int dim) 
+{
+    int val, minim = INT_MAX, i,contor=0, b[DIM];
+    for (i = 0; i < dim; i++)
+        if (a[i] > 0) contor++;// am calculat numarul elementelor pozitive din tablou
+    
+    for (i = 0; i < dim; i++)
+        b[i] = a[i] % contor; // am stocat restul impartirii elementelor din primul tablou la numarul de elem pozitive din tablou
+    for (i = 0; i < dim; i++)
+    {
+        printf("\n Elementele din noul tablou sunt: %d", b[i]);
+    }
+   
+}
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 11
+//algoritm ce inverseaza sirul de caract si afiseaza elem de pe pozitii pare
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <string.h>
+
+void inversare(char s[]);
+void afisare(char s[]);
+
+int main()
+{
+        char s[25];
+        printf("\nCititi sirul de caractere: ");
+        scanf("%s", &s);
+        inversare(s);
+        afisare(s);
+        
+        return 0;
+
+}
+void inversare(char s[25])
+{
+        char inv[25];
+        int i,k=0;
+        for (i = strlen(s) - 1; i >= 0; i--)
+        {
+                inv[k] = s[i];
+                k++;
+
+        }
+        for (i = 0; i < strlen(inv); i++)
+                s[i] = inv[i];
+        printf("\nSirul inversat este: %s", s);
+}
+
+void afisare(char s[25])
+{
+        char s_par[25];
+        int i,k=0;
+        for (i = 0; i < strlen(s); i = i++)
+        {
+                if (i % 2 == 0)
+                {
+                        s_par[k] = s[i];
+                        k++;
+                }
+        }
+
+        for (i = 0; i <strlen(s_par); i++)
+                s[i] = s_par[i];
+    printf("\nElementele de pe poz pare din sir sunt: %s", s);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 12
+//sa se afiseze elemen diagonalei sec daca este patratica, altfel sa se afiseze suma elementelor de pe coloana data 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+
+
+void elemDiag(int a[101][101], int n);//prototip de functie ce afiseaza elementele de pe diagonala secundara
+int suma(int a[101][101], int n, int m);//prototip de functie ce calculeaza suma elemetelor de pe coloana c
+
+
+int main()
+{
+    int n, m, a[101][101],afisare,i,j,suma_elem=0;
+    printf("\nIntroduceti dimensiunea primei matrice: ");
+    scanf("%d", &n);
+    printf("\nIntroduceti dimensiunea primei matrice: ");
+    scanf("%d", &m);
+
+    printf("\nIntroduceti elementele: ");
+    for (i = 0; i < n; i++)
+    {
+        printf("\nLinia %d: \n", i );
+        for (j = 0; j < m; j++)
+        {
+            printf("\na[%d,%d]= ", i, j);
+            scanf("%d", &a[i][j]);
+        }
+    }
+    if (n == m) elemDiag(a, n);
+    else
+    {
+        suma_elem = suma(a, n, m);
+        printf("\nSuma elementelor este: %d", suma_elem);
+    }
+
+     
+  
+}
+
+void elemDiag(int a[101][101], int n) //functie care afiseaza elementele de pe diagonala secundara
+{
+    int i, j;
+    for (i = 0; i < n; i++)
+    {
+        for (j = 0; j < n; j++)
+            if (i + j == n-1) printf("\nElementele de pe diagonala secundara: %d", a[i][j]);
+    }
+
+}
+
+int suma(int a[101][101], int n, int m)//functie care afiseaza suma elementelor de pe coloana c
+{
+    int c,i,j,s=0;
+    printf("\nIntroduceti coloana c: ");
+    scanf("%d", &c);
+    for (i = 0; i < n; i++)
+    {
+        for (j = 0; j < n; j++)
+            if (j == c) s = s + a[i][j];
+    }
+    return s;
+
+}
+
+
+
+
+
+
+
+
+
+PROBLEMA 2
+//algoritm ce calculeaza cel m mic elem pozitiv dintr-un tablou unidimensional
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include <climits>
+#define DIM 20
+
+int valMin(int a[], int dim); // prototip de functie pt a calcula cel m mic element
+
+int main()
+{
+        int a[DIM],dim, i,minim;
+        printf("\nIntroduceti dimensiune: ");
+        scanf("%d", &dim);
+        if (dim > DIM) return 1;
+        printf("\nIntroduceti elementele tabloului: ");
+        for(i=0;i<dim;i++)
+        {
+                printf("\na[%d]= ", i);
+                scanf("%d", &a[i]);
+        }
+        minim = valMin(a, dim);
+        printf("\nValoarea minima este: %d", minim);
+        return 0;
+}
+
+int valMin(int a[], int dim) //functie ce calculeaza cel m mic elem pozitiv dintr-un tablou unidimensional
+{
+        int val,minim=INT_MAX,i;
+        for (i = 0; i < dim; i++)
+                if (a[i] > 0 && a[i] < minim) minim = a[i];
+        return minim;
+}
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 3
+﻿//algoritm care citeşte de la tastatură un tablou de 10 valori intregi.Definiţi o funcţie
+//care primeste tabloul ca parametru şi apoi îl afişeaza ordonat crescător
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+
+void afisare(int a[10]); //prototip de functie care afiseaza elementele tabloului in ordine crescatoare
+
+int main()
+{
+        int a[10],i;
+        printf("\nIntroduceti elementele: ");
+        for (i = 0; i < 10; i++)
+        {
+                printf("\na[%d]= ", i + 1);
+                scanf("%d", &a[i]);
+        }
+        afisare(a);
+
+}
+void afisare(int a[10])//functie care afiseaza elementele tabloului in ordine crescatoare
+{
+        int i,aux,j;
+        for (i = 0; i < 10; i++)
+        {
+                for (j = i + 1; j < 10; j++)
+
+                {
+                        if (a[j] < a[i])
+                        {
+                                aux = a[i];
+                                a[i] = a[j];
+                                a[j] = aux;
+                        }
+                }
+        }
+        for(i=0;i<10;i++)
+                printf("\na: %d", a[i]);
+}
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 4
+//algoritm care  defineşte o parolă (in format şir de caractere). Programul citeşte în 
+//mod repetat şirurile de caractere introduse de la tastatură, până când utilizatorul scrie parola corectă.
+//Să se afişeze numărul de incercări până la introducerea parolei corecte
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <string.h>
+
+void parola(char a[]); //prototip de functie care calculeaza de cate ori a fost introdusa gresit parola
+
+int main()
+{
+
+    char a[25] = "sarbatori";
+
+
+    parola(a);
+    return 0;
+}
+
+void parola(char a[]) // functie care calculeaza de cate ori a fost introdusa gresit parola
+{
+    bool ok = false;
+    int j = 0, cnt = 0;
+    char sir2[25];
+    printf("\nIntroduceti parola: ");
+    scanf("%s", sir2);
+    if (strcmp(a, sir2) == 0)
+    {
+        ok = true;
+        printf("\nParola a fost introdusa din prima");
+
+    }
+    while (ok == false)
+    {
+        cnt++;
+        printf("\nIntroduceti parola: ");
+        scanf(" %s", &sir2);
+        if (strcmp(a, sir2) == 0)
+        {
+            ok = true;
+            printf("\nContorul parolelor introduse gresit este: %d", cnt);
+
+        }
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 6
+﻿/* algoritm care : a) afişează poziţiile elementelor pare din fiecare matrice;
+b) afişează suma elementelor impare din ambele matrice;
+c) afişează suma matricelor;*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#define MAX 20
+
+
+void poz(int a[101][101], int n, int b[MAX][MAX], int m);//prototip de functie ce afiseaza pozitia elem imp din matrici
+int sumaimpar1(int a[101][101], int n);//prototip de functie ce calculeaza suma elem impare din matricea 1
+int sumaimpar2(int b[MAX][MAX], int m);//prototip defunctie ce calculeaza suma elem impare din matricea 2
+int sumaMatrice(int a[101][101], int n, int b[MAX][MAX], int m);//prototip de functie ce calculeaza suma matricelor
+
+int main()
+{
+        int n,m,a[101][101], i, j,b[MAX][MAX],s_i1, s_i2,suma;
+        printf("\nIntroduceti dimensiunea primei matrice: ");
+        scanf("%d", &n);
+        printf("\nIntroduceti elementele: ");
+        for (i = 0; i < n; i++)
+        {
+                printf("\nLinia %d: \n", i + 1);
+                for (j = 0; j < n; j++)
+                {
+                        printf("\na[%d,%d]= ", i + 1, j + 1);
+                        scanf("%d", &a[i][j]);
+                }
+        }
+        
+        printf("\n Introduceti dimensiunea celei de-a doua matrice: ");
+        scanf("%d", &m);
+        printf("\nIntroduceti elementele: ");
+        for (i = 0; i < m; i++)
+        {
+                printf("\nLinia %d: \n", i + 1);
+                for (j = 0; j < m; j++)
+                {
+                        printf("\n a[%d][%d]= ", i + 1, j + 1);
+                        scanf("%d", &b[i][j]);
+                }
+        }
+        s_i1 = sumaimpar1(a, n);
+        s_i2 = sumaimpar2(b, m);
+        poz(a, n, b, m);
+        printf("\nSuma elementelor imp din prima matrice este: %d", s_i1);
+        printf("\nSuma elementelor imp din a doua matrice este: %d", s_i2);
+        suma=sumaMatrice(a, n, b, m);
+        printf("\nSuma matricelor este: %d", suma);
+}
+
+void poz(int a[101][101], int n, int b[MAX][MAX], int m)
+{
+        int i, j;
+        for (i = 0; i < n; i++)
+        
+                for (j = 0; j < n; j++)
+                {
+                        if (a[i][j] % 2 == 0)
+                        {
+                                printf("\nPozitia elem pare din matricea 1: linia %d", i + 1);
+                                printf("\n coloana %d", j + 1);
+                                printf("\n");
+                        }
+        }
+        for(i=0;i<m;i++)
+                for (j = 0; j < m; j++)
+                {
+                        if (b[i][j] % 2 == 0)
+                        {
+                                printf("\nPozitia elem pare din matricea 2: Linia %d", i + 1);
+                                printf("\nColoana %d", j + 1);
+                                printf("\n");
+                        }
+                }
+
+}
+
+int sumaimpar1(int a[101][101], int n)
+{
+        int suma = 0,i,j;
+        for(i=0;i<n;i++)
+                for (j = 0; j < n; j++)
+                {
+                        if (a[i][j] % 2 != 0) suma = suma + a[i][j];
+                }
+        return suma;
+}
+
+int sumaimpar2(int b[MAX][MAX], int m)
+{
+        int suma2 = 0, i, j;
+        for (i = 0; i < m; i++)
+                for (j = 0; j < m; j++)
+                {
+                        if (b[i][j] % 2 != 0) suma2 = suma2 + b[i][j];
+                }
+        return suma2;
+}
+
+int sumaMatrice(int a[101][101], int n, int b[MAX][MAX], int m)
+{
+        int i, j, s1 = 0,s2=0,s=0;
+        for (i = 0; i < n; i++)
+                for (j = 0; j < n; j++)
+                {
+                        s1 = s1 + a[i][j];
+                }
+
+        for (i = 0; i < m; i++)
+                for (j = 0; j < m; j++)
+
+                {
+                        s2 = s2 + b[i][j];
+                }
+
+        s = s1 + s2;
+        return s;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 8
+﻿//algoritm care preia de la tastatură “n” valori reale într-un tablou unidimensional, 
+//calculează cu o funcţie valoarea medie a valorilor introduse si afişează cu o altă funcţie doar valorile 
+//din tablou mai mari decît valoarea medie calculată
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#define DIM 20
+
+float valMed(float a[], int n); //prototip de functie pentru a calcula valoarea medie
+void afisare(float a[], int n, float valmed);//prototip de functie care afiseaza el mai mari decat valoarea medie
+
+int main()
+{
+        int n, i;
+        float valmed = 0;
+        float a[DIM];
+        printf("\nIntroduceti dimensiunea: ");
+        scanf("%d", &n);
+        if (n > DIM) return 1;
+        printf("\nIntroduceti elementele: ");
+        for (i = 0; i < n; i++)
+        {
+                printf("\na[%d]= ", i + 1);
+                scanf("%f", &a[i]);
+        }
+        valmed = valMed(a, n);
+        printf("\nValoarea este: %f", valmed);
+        afisare(a, n, valmed);
+
+        return 0;
+}
+
+float valMed(float a[DIM], int n)//functie care calculeaza valoarea medie 
+{
+        int i;
+        float val,s=0;
+        for (i = 0; i < n; i++)
+                s = s + a[i];
+        val = s / n;
+        return val;
+}
+
+void afisare(float a[DIM], int n, float valmed)//functie 
+{
+        int i;
+        for (i = 0; i < n; i++)
+                if (a[i] > valmed) printf("\nValorile sunt: %f", a[i]);
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 9
+//algoritm ce numara elemente impare  negative din tablou si le afiseaza pe acestea
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include <climits>
+#define DIM 20
+
+void cntTab(int a[], int dim); // prototip de functie pt a calcula cel m mic element
+
+int main()
+{
+    int a[DIM], dim, i;
+    printf("\nIntroduceti dimensiune: ");
+    scanf("%d", &dim);
+    if (dim > DIM) return 1;
+    printf("\nIntroduceti elementele tabloului: ");
+    for (i = 0; i < dim; i++)
+    {
+        printf("\na[%d]= ", i);
+        scanf("%d", &a[i]);
+    }
+    cntTab(a, dim);
+    return 0;
+}
+
+void cntTab(int a[], int dim) //functie ce calculeaza cel m mic elem pozitiv dintr-un tablou unidimensional
+{
+    int contor=0, i;
+    for (i = 0; i < dim; i++)
+        if (a[i] < 0 && a[i] % 2 != 0)
+        {
+            contor++;
+            
+            printf("\n Elementele sunt: %d", a[i]);
+        }
+    printf("\n Contorul este: %d", contor);
+}

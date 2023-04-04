@@ -1,0 +1,641 @@
+PROBLEMA 1
+/*  Să se scrie un program C/C++, care folosind o structură numita Student, avand
+campurile {nume, prenume, ţara de origine, grupa, anul naşterii}, să determine
+numărul de studenţi străini din grupă (grupa de MAX studenti) şi să afişeze toate
+datele acestora. Datele pentru studenţii din grupa se citesc de la intrarea standard,
+până la întâlnirea numelui AAA.*/
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <string.h>
+#define MAX 40
+
+struct Student {
+        char nume[15];
+        char prenume[15];
+        char tara[25];
+        int grupa;
+        int an;
+};
+void afisDatePers(Student*, int); //prototip de functie care afiseaza datele studentilor
+
+int main()
+{
+        struct Student s[MAX];
+        int nr, i = 0, cnt = 0;
+        printf("\nDatele studentilor: ");
+        nr= 0;
+        do { //am folosit do while in loc de for pentru ca nu stiam cati studenti se citesc de la tastatura
+                printf("\nNume student: ");
+                scanf("%s", s[nr].nume); 
+                if (strcmp(s[nr].nume, "AAA") == 0) break; //am citit prima data numele studentului si daca acesta era"AAA" iesea din do while cu ajutorul lui break
+                
+                else { //daca numele era diferit de "AAA" am scris si am afisat restul datelor studentului
+                        printf("\nPrenume student: ");
+                        scanf("%s", s[nr].prenume);
+                        printf("\nTara de provenienta: ");
+                        scanf("%s", s[nr].tara);
+                        printf("\nGrupa: ");
+                        scanf("%d", &s[nr].grupa);
+                        printf("\nAnul nasterii: ");
+                        scanf("%d", &s[nr].an);
+                        nr++; //am crescut nr pentru a stii cati studenti am citit
+                }
+        } while (strcmp(s[nr].nume, "AAA") != 0);
+        for (i = 0; i < nr; i++)
+        {
+                if (strcmp(s[i].tara, "Romania") != 0) cnt++; //am numarat cati studenti sunt straini
+                
+        }
+        printf("\nDatele studentilor straini sunt: ");
+        afisDatePers(s, nr); //am afisat datele studentilor straini
+        printf("\nStudentii straini sunt in numar de %d", cnt); // //am afisat cati studenti straini exista
+        
+        return 0;
+}
+void afisDatePers(Student* p, int nr) //functie care afiseaza datele studentilor
+{
+        int i;
+        for (i = 0; i < nr; i++)
+        {
+                printf("\n Numele:%s", p->nume);
+                printf("\n Prenumele: %s", p->prenume);
+                printf("\n Tara de provenienta: %s", p->tara);
+                printf("\n Grupa: %d", p->grupa);
+                printf("\n Anul nasterii: %d", p->an);
+
+        }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 10
+﻿/*
+ Să se definească o structură cu numele Masina, care are câmpurile producator, anul 
+fabrictiei, capacitatea_cilindrică și culoare. Să se aloce dinamic memorie pentru n
+date de tip Maşina şi să se citească informaţiile pentru acestea. Să se afişeze 
+inregistrarile maşinilor de culoare roşie, fabricate după anul 2010
+*/
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<cstdio>
+#include<string.h>
+#include <malloc.h>
+
+struct Masina
+{
+        char producator[50];
+        int anul;
+        int capacitatea_cilindrica;
+        char culoare[10];
+};
+
+void citireDateMasina(Masina*);  //prototip de functie care citeste datele despre masina
+void afisareDateMasina(Masina*); //prototip de functie care afiseaza datele despre masina
+
+
+int main()
+{
+        Masina* p;
+        int n, i;
+        printf("\nNumarul de masini:");
+        scanf_s("%d", &n); //am citit numarul de masini
+        if (p = (Masina*)malloc(n*sizeof(Masina))) //am verificat daca am alocat dinamic cu succes memorie pentru n date de tip Masina
+        {
+                for (i = 0; i < n; i++)
+                {
+                        printf("\n Masina %d", i + 1);
+                        citireDateMasina(&p[i]);
+                }
+                printf("\n Masinile construite dupa 2010 , de culoare rosie sunt : ");
+                for (i = 0; i < n; i++)
+                        if ((strcmp(p[i].culoare, "rosu") == 0) && (p[i].anul > 2010))//am verificat daca masina are culoarea rosie si daca e fabricata dupa anul 2010
+                        {
+                                printf("\n\tDate despre masina: ");
+                                afisareDateMasina(&p[i]);
+                        }
+        }
+        else
+        {
+                printf("\n Alocare nereusita!");
+                return 0;
+        }
+        if (p) free(p); //am eliberat spatiul de memorie
+        return 0;
+}
+
+void citireDateMasina(Masina* p)  //functie care citeste datele despre masina
+{
+        printf("\nProducatorul masinii: ");
+        scanf_s("%s", p->producator);
+        printf("\nAnul fabricatiei masinii: ");
+        scanf_s("%d", &p->anul);
+        printf("\nCapacitatea cilindrica masinii: ");
+        scanf_s("%d", &p->capacitatea_cilindrica);
+        printf("\nCuloarea masinii: ");
+        scanf_s("%s", p->culoare);
+}
+void afisareDateMasina(Masina* p)   //functie care afiseaza datele despre masina
+{
+        printf("\n\tProducatorul masinii rosie: %s", p->producator);
+        printf("\n\tAnul fabricatiei masinii rosie: %d", p->anul);
+        printf("\n\tCapacitatea cilindrica masinii: %d", p->capacitatea_cilindrica);
+        printf("\n\tCuloarea: %s", p->culoare);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 2
+﻿/*Să se scrie un program C / C++, în care folosind câte o funcţie, se transferă ca
+parametru o variabilă de tip structură de date prin valoare şi respectiv prin adresă,
+folosind pointeri.În funcţia main() iniţializaţi câmpurile structurii cu date citite de la
+tastatură.În ambele funcţii afişaţi datele din structură folosind un mesaj adecvat.
+*/
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <malloc.h>
+
+
+struct Cantaret {
+
+    char nume[10];
+    char prenume[10];
+    char melodie[50];
+    int an_lansare;
+    char album[50];
+};
+
+
+
+void citireDateCantaret(Cantaret*);
+void afisareDateCantaret(Cantaret*);
+
+
+
+int main()
+{
+    struct Cantaret* p;
+    if ((p = (Cantaret*)malloc(sizeof(Cantaret)))) //am verificat daca am alocat cu succes dinamic memorie pentru date de tip Cantaret
+    {
+        printf("Scrieti datele despre cantaret: ");
+        citireDateCantaret(p);
+        afisareDateCantaret(p);
+
+    }
+    else
+    {
+        printf("Alocare nereusita!");
+        return 1;
+    }
+    if(p) free(p);
+    return 0;
+}
+
+
+
+void citireDateCantaret(Cantaret* p)//functie pentru citirea datelor cantaretului
+{
+
+    printf("\nIntroduceti prenumele cantaretului: ");
+    scanf("%s", p->prenume);
+    printf("\nIntroduceti numele cantaretului : ");
+    scanf("%s", p->nume);
+    printf("\nIntroduceti melodia cantaretului: ");
+    scanf("%s", &p->melodie);
+    printf("\nIntroduceti anul in care a lansat melodia: ");
+    scanf("%d", &p->an_lansare);
+    printf("\nIntroduceti albumul din care face parte melodia: ");
+    scanf("%s", &p->album);
+}
+
+
+
+void afisareDateCantaret(Cantaret* p) //functie pentru afisarea datelor cantaretului
+{
+    printf("\nCantaretul: %s %s", p->nume, p->prenume);
+    printf("\nMelodia pe care o canta: %s", p->melodie);
+    printf("\nAnul in care a lansat melodia: %d", p->an_lansare);
+    printf("\nAlbumul din care face parte melodia: %s", p->album);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 4
+﻿/*Să se scrie o aplicaţie C/C++, care utilizând o structură de tip Angajat, să afişeze toate 
+datele persoanelor cu ocupaţia inginer dintr-o întreprindere (nume, prenume, 
+ocupaţia, data naşterii, secţia în care lucrează)
+*/
+
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <malloc.h>
+
+
+struct data_calendaristica {
+        int ziua;
+        char luna[11];
+        int anul;
+};
+struct Angajat {
+        char nume[16];
+        char prenume[20];
+        char ocupatia[30];
+        struct data_calendaristica data_nasterii;
+        char sectia[50];
+};
+
+
+void citireDateAngajat(Angajat*); //prototip de functie pentru citirea datelor despre angajati
+void afisareDateAngajat( Angajat*); //prototip de functie pentru afisarea datelor despre angajati
+
+
+
+int main()
+{
+        int n, i;
+        struct Angajat* p;
+        printf("\nIntroduceti numarul de angajati: ");
+        scanf("%d", &n);
+        p = (Angajat*)malloc(sizeof(Angajat)); //am verificat daca am alocat cu succes dinamic memorie pentru date de tip Angajat
+        printf("\n Introduceti datele persoanelor:\n ");
+        for (i = 0; i < n; i++)
+        {
+                printf("\n Persoana %d", i + 1);
+                citireDateAngajat(&p[i]);
+                afisareDateAngajat(p);
+                
+        }
+        if(p) free(p);
+        
+        return 0;
+}
+
+
+
+void citireDateAngajat(Angajat* p) //functie pentru citirea datelor despre angajati
+{
+        printf("\nIntroduceti numele: ");
+        scanf("%s", p->nume);
+        printf("\nIntroduceti prenumele: ");
+        scanf("%s", p->prenume);
+        printf("\nIntroduceti ocupatia: ");
+        scanf("%s", p->ocupatia);
+        printf("\nIntroduceti ziua, luna, si anul nasterii: ");
+        scanf("%d", &(p->data_nasterii).ziua);
+        scanf("%s", (p->data_nasterii).luna);
+        scanf("%d", &(p->data_nasterii).anul);
+        printf("\nIntroduceti sectia: ");
+        scanf("%s", p->sectia);
+}
+
+
+
+void afisareDateAngajat(Angajat* p) //functie pentru afisarea datelor despre angajati
+{
+{
+        printf("\nAngajatul: %s %s", p->nume, p->prenume);
+        printf("\n\tOcupatia: %s", p->ocupatia);
+        printf("\n\tData nasterii: %d / %s / %d", (p->data_nasterii).ziua, (p->data_nasterii).luna, (p->data_nasterii).anul);
+        printf("\n\tSectia: %s", p->sectia);
+                
+}
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 6
+﻿/*
+Program care afişează numele, prenumele şi media studentului cu cele mai bune rezultate din grupă în urma sesiunii de iarnă.
+Folosiţi pentru aceasta un tablou de structuri, de un tip numit Student, alocarea dinamica, şi o funcţie care returnează înregistrarea student cu media cea mai mare.*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<malloc.h>
+struct Student
+{
+        char nume[30];
+        char prenume[30];
+        float media;
+};
+void citStud(struct Student*); //prototip de functie pentru citirea datelor despre studenti
+void afisStud(struct Student*, int); //prototip de functie pentru afisarea datelor despre studenti
+int main(void)
+{
+        int n, i;
+        struct Student* p;
+        struct Student media_max;
+        media_max.media = 0; //am declarat media_max.media pentru a putea afla media cea mai mare
+        printf("\nIntroduceti numarul de studenti:");
+        scanf("%d", &n);
+        if (p = (Student*)malloc(sizeof(Student))) //am verificat daca am alocat cu succes dinamic memorie pentru date de tip Student
+        {
+
+                printf("\nIntroduceti datele studentilor:");
+                for (i = 0; i < n; i++)
+                {
+                        printf("\nStudent %d:", i + 1);
+                        citStud(&p[i]);
+                        if (p[i].media > media_max.media) media_max.media = p[i].media; //daca media studentului este mai mare decat media max, media maxima a primit valoarea mediei studentului
+                }
+                printf("\nMedia max: %f", media_max.media);
+                printf("\nStudentul cu cea mai mare medie:");
+                for (i = 0; i < n; i++)
+                {
+                        if (p[i].media == media_max.media)
+                                afisStud(&p[i], n); //am cautat carui student ii corespunde media cea mai mare pentru a putea afisa datele despre el
+                }
+        }
+        if (p)
+                free(p);
+}
+void citStud(struct Student* p)
+{
+        printf("\nNumele: ");
+        scanf("%s", p->nume);
+        printf("\nPrenumele: ");
+        scanf("%s", p->prenume);
+        printf("\nMedia: ");
+        scanf("%f", &p->media);
+}
+void afisStud(struct Student* p, int n)
+{
+
+        printf("\nNume: %s", p->nume);
+        printf("\nPrenume: %s", p->prenume);
+        printf("\nMedia :%f", p->media);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 7
+﻿/* Să se scrie o aplicaţie C/C++, care alocă dinamic memorie pentru datele a n studenţi,
+(nume, prenume si gen), citeşte datele pentru fiecare din aceştia, afişează numărul
+studentelor si elibereaza memoria alocată.
+*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include<stdio.h>
+#include<string.h>
+
+using namespace std;
+
+struct Student
+{
+    char nume[15];
+    char prenume[15];
+    char gen[2];
+};
+
+void citireDateStudent(Student*); //prototip de functie pentru citirea datelor despre studenti
+
+int main()
+{
+    int i, n, cnt = 0;
+    Student* p;
+    cout << "\n Introduceti numarul de studenti:";
+    cin >> n;
+    p = new Student[n]; //am alocat dinamic memorie pentru date de tip Student
+    if (p == NULL)
+    {
+        cout << "\Alocare nereusita";
+        return 1;
+    }
+    else if (p = new Student[n])
+    {
+        for (i = 0; i < n; i++)
+        {
+            cout << "\nDatele despre studentul " << i;
+            citireDateStudent(&p[i]);
+            if (strcmp(p[i].gen, "F") == 0) //am verificat daca s-a citit date despre o studenta; daca s-a citit "F" la gen, am crescut contorul
+                cnt++;
+        }
+        cout << "\nContorul studentelor: " << cnt; //am afisat contorul studentelor
+    }
+
+    if (p);
+    delete[]p;//eliberarea memoriei alocata dinamic
+    return 0;
+}
+
+void citireDateStudent(Student* p) //functie pentru citirea datelor despre studenti
+{
+    cout << "\n Numele studentului: ";
+    cin >> p->nume;
+    cout << "\n Prenumele studentului: ";
+    cin >> p->prenume;
+    cout << "\n Genul studentului: ";
+    cin >> p->gen;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 8
+﻿/* Declaraţi un nou tip de date O_struct, care să conţină o variabilă de tip întreg, una de
+tip caracter şi un şir de 256 de caractere. Definiţi in main( ) o variabilă statică de tip
+O_struct, căreia să-i iniţializaţi câmpurile cu date citite de la intrarea standard.
+Declaraţi apoi un pointer de tip O_struct, numit po_struct, care va fi definit prin
+alocarea dinamică a unei zone de memorie care să conţină un articol de tip O_struct.
+Iniţializaţi câmpurile structurii de date folosind pointerul po_struct. Afisati toate
+campurile si eliberaţi zona de memorie alocată.
+
+*/
+#define _CRT_SECURE_NO_WARNINGS
+#include<cstdio>
+
+
+struct O_struct
+{
+        int numar;
+        char caracter;
+        char sir_caract[256];
+};
+
+int main()
+{
+        O_struct structura;
+        printf("\nNumar: ");
+        scanf("%d", &structura.numar);
+        printf("\nCaracter: ");
+        scanf("%s", &structura.caracter);
+        printf("\nSir de caractere: ");
+        scanf("%s", structura.sir_caract);
+        O_struct* po_struct; //am declarat pointerul "po_struct" care este definit prin alocarea dinamica a unei zone de memorie ce contine un articol de tip O_struct
+        if (po_struct = new O_struct) //am verificat daca alocarea dinamica a memoriei a datelor de tip O_struct a reusit
+        {
+                printf("\nNumar: ");
+                scanf("%d", &po_struct->numar);
+                printf("\nCaracter: ");
+                scanf("%s", &po_struct->caracter);
+                printf("\nSir de caractere: ");
+                scanf("%s", po_struct->sir_caract);
+        }
+        else
+        {
+                printf("\nAlocare nereusita!");
+                return 1;
+
+        }
+
+        printf("\n Campurile totale:");
+        printf("\nNumar: %d", structura.numar);
+        printf("\nCaracter: %c", structura.caracter);
+        printf("\nSir de caractere: %s", structura.sir_caract);
+        printf("\n\tNumar: %d", po_struct->numar);
+        printf("\n\tCaracter: %c", po_struct->caracter);
+        printf("\n\tSir de caractere: %s", po_struct->sir_caract);
+        if (po_struct) delete[]po_struct;//am eliberat spatiul de memorie
+        return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 9
+﻿/*
+ Scrieti o aplicaţie C/C++, care alocă dinamic memorie pentru memorarea datelor a n 
+produse, folosind o structură Produs, cu câmpurile denumire, pret, cantitate, citeşte 
+datele pentru fiecare dintre produse si afişează produsul din care avem cel mai mult 
+pe stoc. În final va elibera memoria alocată
+
+*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <malloc.h>
+
+
+struct Produs
+{
+        char denumire[50];
+        float pret;
+        float cantitate;
+};
+
+void citireDateProduse(Produs*);//prototip de functie pentru citirea datelor despre produse
+void afisareDateProdus(Produs*);//prototip de functie pentru afisarea produsului cu cea mai mare cantitate din stoc
+
+int main()
+{
+        int  n;
+        printf("\nNumarul de produse: ");
+        scanf("%d", &n);
+        Produs* p;
+        Produs date_produs;
+        date_produs.cantitate = 0;
+        if (p = (Produs*)malloc(n*sizeof(Produs)))
+        {
+                int i;
+                for ( i = 0; i < n; i++)
+                {
+
+                        printf("\n\tProdusul  nr %d", i + 1);
+                        citireDateProduse(&p[i]); //am citit produsele
+                        if (p[i].cantitate > date_produs.cantitate)  date_produs.cantitate = p[i].cantitate; //am cautat produsul care are cea mai mare cantitate din stoc
+                        
+                }
+                printf("\nProdusul din care avem cel mai mult pe stoc: ");
+                for (i = 0; i < n; i++)
+                {
+                        if (p[i].cantitate == date_produs.cantitate) 
+                                afisareDateProdus(&p[i]); //am afisat produsul din care avem cel mai mult pe stoc
+                }
+        }
+        else
+        {
+                printf("\nAlocare nereusita!");
+                return 0;
+        }
+        if (p) free(p); //am eliberat spatiul de memorie
+        return 0;
+}
+
+void citireDateProduse(Produs* p)
+{
+        printf("\nDenumirea: ");
+        scanf("%s", p->denumire);
+        printf("\nPretul: ");
+        scanf("%f", &p->pret);
+        printf("\nCantitatea : ");
+        scanf("%f", &p->cantitate);
+}
+void afisareDateProdus(Produs* p)
+{
+        printf("\n\tDenumirea produsului: %s", p->denumire);
+        printf("\n\tPretul produsului: %f lei", p->pret);
+        printf("\n\tCantitatea produsului: %f", p->cantitate);
+}
+
+
+
+

@@ -1,0 +1,592 @@
+PROBLEMA 12
+﻿/*Scrieţi un program în care se citesc de la tastatură elementele de tip întreg ale unei
+matrici pătratice, utilizând o funcţie. Scrieţi o funcţie care interschimbă două linii ale
+matricii. Afişaţi cu o funcţie matricea iniţială şi cea obţinută. Dimensiunea matricii şi
+numerele ce identifică liniile care vor fi interschimbate se citesc de la tastatură, în
+funcţia main. (fără variabile globale).*/
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#define DIM 20
+
+void afisare(int a[DIM][DIM], int n); //prototip de functie care afiseaza elem. matricei
+void inversare(int a[DIM][DIM], int n); //prototip de functie care inverseaza doua linii ale matricei
+
+int main()
+{
+        int i, j, a[DIM][DIM], dim;
+        int n;
+        
+        
+        printf("\nNumarul de linii si coloane pentru cele doua matrici:");
+        scanf_s("%d", &n);
+        printf("Cititi matricea:\n");
+        for (i = 0; i < n; i++)
+        {
+                for (j = 0; j < n; j++)
+                        scanf("%d", &a[i][j]); //am citit elem. matricei
+        }
+        
+        printf("\nAfisati matricea initiala:");
+        printf("\n"); 
+        afisare(a, n); //am afisat matricea
+        printf("\n");
+        inversare(a, n); //am interschimbat doua linii si am afisat matricea modificata
+        return 0;
+
+}
+void afisare(int a[DIM][DIM], int n)
+{
+        int i, j;
+        for(i=0;i<n;i++)
+        {
+                for (j = 0; j < n; j++)
+                        printf("%d ", a[i][j]);
+                printf("\n");
+        }
+
+}
+
+void inversare(int a[DIM][DIM], int n)
+{
+        int i, j, aux = 0, l1 = 0, l2 = 0;
+        printf("\n Numerele liniilor care doriti sa le interschimbati");
+        printf("\nl1= "); //am citit prima linie pe care vreau s-o interschimb
+        scanf_s("%d", &l1); //am citit a doua linie pe care vreau s-o interschimb
+        printf("\nl2= ");
+        scanf_s("%d", &l2);
+        for (i = 0; i < n; i++)
+        {
+                aux = a[l1][i]; 
+                a[l1][i] =a[l2][i]; //am interschimbat liniile
+                a[l2][i] = aux;
+        }
+        for (i = 0; i < n; i++)
+        {
+                for (j = 0; j < n; j++)
+                        printf("%d ", a[i][j]);
+                printf("\n");
+        }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 1_1
+//algoritm ce calculeaza valoarea medie dintr-un tablou unidimensional folosind pointeri
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+#define DIM 20
+
+float valMed(int *, int);
+int i, dim;
+int main()
+{
+
+    int x[DIM];
+    printf("\nIntroduceti dim: ");
+    scanf("%d", &dim); //am citit dimensiu
+    if (dim > DIM) 
+          { printf("Dimensiune prea mare!");
+           return 1;
+          }
+    for (i = 0; i < dim; i++)
+    {
+        printf("\tx[%d]= ", i+1);
+        scanf("%d", x+i); //am citit elem. tabloului unidim.
+
+    }
+    printf("\n Valoarea este: %3f\n", valMed(x, dim)); //am afisat valoarea medie
+   return 0;
+}
+
+float valMed(int *x, int n)
+{
+    int i;
+    float sum = 0.0f;
+    for (i = 0; i < n; i++)
+        sum += *(x+i); //am calculat valoarea medie
+    return sum / n;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 1_2
+//algoritm ce calculeaza cel m mic elem pozitiv dintr-un tablou unidimensional folosind pointeri
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include <climits>
+#define DIM 20
+
+int valMin(int *a, int dim); // prototip de functie pt a calcula cel m mic element
+
+int main()
+{
+    int a[DIM], dim, i, minim,*p;
+    printf("\nIntroduceti dimensiune: ");
+    scanf("%d", &dim);
+    if (dim > DIM) return 1;
+    printf("\nIntroduceti elementele tabloului: ");
+    for (i = 0; i < dim; i++)
+    {
+        printf("\na[%d]= ", i+1);
+        scanf("%d", a+i);
+    }
+    minim = valMin(a, dim);
+    p = &minim;
+    printf("\nValoarea minima este: %d", *p);
+    return 0;
+}
+
+int valMin(int *a, int dim) //functie ce calculeaza cel m mic elem pozitiv dintr-un tablou unidimensional
+{
+    int val, minim = INT_MAX, i;
+    for (i = 0; i < dim; i++)
+        if (*(a+i) > 0 && *(a + i) < minim) minim = * (a + i);
+    return minim;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 1_3
+﻿// algoritm care citeste de la tastatura un tablou unidimensional si afiseaza elementele tabloului in ordine cresc cu ajutorul unei functii
+//tabloul este transmis prin pointeri
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+
+void afisare(int *a); //prototip de functie care afiseaza elementele tabloului in ordine crescatoare
+
+int main()
+{
+    int a[10], i;
+    printf("\nIntroduceti elementele: ");
+    for (i = 0; i < 10; i++)
+    {
+        printf("\na[%d]= ", i + 1);
+        scanf("%d", a+i); //am citit elem. tabloului unidimensional
+    }
+    afisare(a);
+    return 0;
+
+}
+void afisare(int *a)//functie care afiseaza elementele tabloului in ordine crescatoare
+{
+    int i, aux, j;
+    for (i = 0; i < 9; i++)
+    {
+        for (j = i + 1; j < 10; j++)
+
+        {
+            if (*(a+j)< *(a+i))
+            {
+                aux = *(a + i);
+                *(a + i) = *(a + j); //am sortat elem. in ordine crescatoare
+                *(a + j) = aux;
+            }
+        }
+    }
+    for (i = 0; i < 10; i++)
+        printf("\na: %d", *(a+i)); //am afisat elem. tabloului ordonat
+}
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 2
+﻿//Se consideră doi parametri întregi şi alţi doi flotanţi din linia de comandă. Să se afişeze suma şi produsul lor.
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc, char* argv[]) { //argc-cate argumente are linia de comanda, tablou; argv-tablou format din sir. de caract. care are argc elem.
+        int i, m;
+        float suma = 0, produs = 1,n;
+        if (argc == 1) {
+                printf("\n\n\tNu ati introdus numerele de adunat !");
+                exit(1);
+        }
+
+        for (i = 1; i < argc-2; i++)
+        {
+                
+                n = atof(argv[i]);
+                produs *= n;//am calculat prima data produsul numerelor de tip float din linia de comanda
+                suma += n; //am calculat prima data suma numerelor de tip float din linia de comanda
+                
+        }
+        for (i = 3; i < argc; i++)
+        {
+                m = atoi(argv[i]);
+                produs *= m;//am calculat produsul numerelor de tip intreg din linia de comanda
+                suma += m;//am adaugat la suma numerelor de tip float suma numerelor de tip int
+        }
+        
+        printf("\nSuma argumentelor din linia de comanda este : %f\n", suma);//in final, am afisat suma
+        printf("\nProdusul argumentelor din linia de comanda este : %f\n", produs);//in final, am afisat suma
+        return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 3
+/* Scrieţi o aplicaţie care citeşte de la tastatură un şir de caractere cu lungimea mai mare
+decât 7. Folosiţi un pointer pt. a accesa şi afişa caracterele de pe poziţiile 1, 3, 5 şi 7.*/
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <string.h>
+void accesare(char* s);
+int main()
+{
+        char sir_caract[255];
+        int dim = strlen(sir_caract), i;
+        if (dim < 7) //am verificat daca dimensiunea citita este corecta
+        {
+                printf("\nDimensiunea este prea mica!");
+                return 1;
+        }
+        printf("\nCititi sirul :");
+        scanf("%s", &sir_caract); //am citit sirul de caractere
+        printf("\nCaracterele de pe pozitiile 1,3,5,7 sunt:");
+        accesare(sir_caract);
+        return 0;
+}
+void accesare(char* sir_caract)
+{
+        int i, ok = 0;
+        for (i = 0; i < strlen(sir_caract); i++)
+        {
+                printf("%c ", *(sir_caract + i + 1));
+                i = i + 1;
+                ok++;
+                if (ok == 4) break; //am iesit din for daca am gasit deja 4 elemente
+        }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 5
+﻿/*Definiţi un tablou de pointeri către şiruri de caractere.Fiecare locaţie a tabloului
+conţine adrese către unul din urmatoarele şiruri de caractere :
+-"valoare prea mică"
+- "valoare prea mare"
+- "valoare corectă"
+Aplicaţia generează un număr aleator între 1 şi 100 şi apoi citeşte în mod repetat
+intrarea de la tastatură până când utilizatorul introduce valoarea corectă.Folosiţi
+mesajele definite pentru a informa utilizatorul, la fiecare pas, despre relaţia existentă
+între numărul generat şi ultima valoare citită.
+*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+void aflare_numar(const char** p, int nr_mesaj);
+
+
+int main()
+{
+        const char* p[] = { "\t\tValoare prea mica\n", "\t\tValoare prea mare\n", "\t\tValoare corecta\n" };
+        time_t t1;
+        srand((unsigned)time(&t1));
+        int numar_random = 0;
+        numar_random = rand() % 100; //am generat aleatoriu numere in 1 si 100
+        int n = 0;
+        while (n != numar_random)
+        {
+                printf("\tIntroduceti un numar intreg: ");
+                scanf("%d", &n); //am citit un numar intreg 
+                if (n < numar_random)
+                        aflare_numar(p, 0); //daca nr citit este mai mic decat numar_random imi afiseaza "Valoare prea mica"
+                if (n > numar_random)
+                        aflare_numar(p, 1); //daca nr citit este mai mare decat numar_random imi afiseaza "Valoare prea mare"
+        }
+        
+        aflare_numar(p, 2);
+
+}
+
+void aflare_numar(const char** pointer, int nr_mesaj) {
+        printf(pointer[nr_mesaj]);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 6
+﻿/*
+ Scrieţi un program în care să definiţi un tablou de pointeri spre şiruri de caractere, pe 
+care să-l iniţializaţi cu diferite mesaje. Afişaţi mesajele
+*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+void afisare(const char** p, int nr_pointer);
+int main()
+{
+        const char* pointer[] = { "Tema la programare\n", "Laboratorul 11\n", "Pointeri spre siruri de caractere\n", //tablou de pointeri spre siruri de caractere
+         };
+        afisare(pointer, 0);
+        afisare(pointer, 1);
+        afisare(pointer, 2); //am afisat mesaje
+        afisare(pointer, 3);
+
+}
+
+void afisare(const char** p, int nr_pointer) 
+{
+        printf(p[nr_pointer]);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 7
+﻿// Să se scrie un program care preia din linia de comandă şiruri de caractere şi afişează 
+//şirul rezultat din concatenarea acestora.
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+#include <string.h>
+
+int main(int argc, char** argv) //argc-cate argumente are linia de comanda, argv-tablou de siruri de caractere care are argc elem.
+{
+        int i;
+        char sir_caract[155];
+        sir_caract[0] = '\0';
+        for (i = 1; i < argc; i++)
+                strcat(sir_caract, *(argv + i)); //am concatenat sirurilor de caractere din linia de comanda cu ajutorul functiei predefine strcat
+        printf("Concatenarea sirurilor din linia de comanda: %s", sir_caract);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 8
+﻿// Să se scrie un program care inversează şirul de caractere citit din linia de comandă.
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <string.h>
+
+void main(int argc, char** argv)
+{
+        int lungime,i;
+        char sir[255];
+        lungime = strlen(*(argv + 1)); //lungimea sirului de caractere
+        for (i = lungime - 1; i >= 0; i--)
+                sir[lungime - i - 1] = *(*(argv + 1) + i);//am inversat sirul
+        sir[lungime] = '\0';
+        printf("Noul sir este: %s", sir); //am afisat noul sir
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 9
+//algoritm care citeste de la tastatura numere reale ce vor fi stocate intr-un tablou unidimensional
+//Sa se scrie o functie care copiaza intr-un alt tablou valorile mai mari decat valoarea medie. Se vor folosi pointeri
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+#define DIM 20
+
+int cntStudenti(float*, int); //prototip de functie care calculeaza cati studenti au media mare sau egala cu 8
+
+
+int main()
+{
+    int n, i,contor,*p;
+    float a[DIM];
+    printf("\nIntroduceti dimensiunea: ");
+    scanf("%d", &n);
+    if (n > DIM)
+    {
+        printf("\nDimensiunea este prea mare!");
+        return 1;
+    }
+    printf("\nIntroduceti elementele: ");
+    for (i = 0; i < n; i++)
+    {
+        printf("\na[%d]= ", i + 1);
+        scanf("%f", a+i);
+    }
+    
+    contor= cntStudenti(a, n);
+    p = &contor;
+    printf("\nContorul studentilor cu medie>=8 este: %d", *p); // am afisat contorul prin intermediul unui pointer
+    return 0;
+
+}
+
+int cntStudenti(float* a, int n)//functie care calculeaza cati studenti au media mare sau egala cu 8
+{
+    
+    int i, cnt=0;
+  
+   
+    for (i = 0; i < n; i++)
+        if (a[i] >= 8) cnt++;//am crescut contorul de fiecare data cand am gasit un element >=8
+
+            return cnt;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 11
+﻿/*Scrieţi un program în care se citesc de la tastatură elementele de tip întreg ale unei
+matrici pătratice, utilizând o funcţie. Scrieţi o funcţie care determină numărul de
+elemente negative de deasupra diagonalei secundare. Afisaţi rezultatul în main() (fără
+variabile globale).*/
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#define DIM 20
+void functie(float a[DIM][DIM], int n);
+int main()
+{
+        int i, n, j;
+        float a[DIM][DIM];
+        
+        int negative = 0;
+        printf("\nNumarul de linii si coloane pentru cele doua matrici:");
+        scanf("%d", &n); //am citit nr de linii si coloane
+        printf("Cititi matricea:\n");
+        for (i = 0; i < n; i++)
+        {
+                for (j = 0; j < n; j++)
+                        scanf("%f", &a[i][j]); //am citit elem. matricei
+        }
+        functie(a, n);
+        return 0;
+}
+void functie(float a[DIM][DIM], int n)
+{
+        int i, j;
+        float nr = 0;
+        for (i = 0; i < n; i++)
+        {
+                for (j = 0; j < n; j++)
+                {
+                        printf("%f", a[i][j]);
+                }
+        }
+        for (i = 0; i < n; i++)
+        {
+                for (j = 0; j < n; j++)
+                {
+                        if (i + j < n - 1 && a[i][j] < 0)
+                        {
+                                nr = nr + 1; //daca elem. de deasupra diagonalei secundare este negativ, am crescut nr, care imi contoreaza cate elem. negative se afla deasupra diag.secundare
+                        }
+                }
+        } printf("\n%0.0f", nr);
+
+}

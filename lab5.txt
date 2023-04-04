@@ -1,0 +1,451 @@
+PROBLEMA 1
+//algoritm care calculeaza rezistenta echivalenta a gruparii serie respectiv gruparii paralel
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+int r1, r2, serie;
+float paralel;
+int citire_r1();
+int citire_r2();
+void afisare();
+
+int gr_serie(int, int); // prototip de functie pentru gruparea serie
+float gr_paralel(int, int); // prototip de functie pentru gruparea paralel
+
+int main()
+{
+
+        r1 = citire_r1();
+        r2 = citire_r2();
+        serie = gr_serie(r1, r2);
+        paralel = gr_paralel(r1, r2);
+        afisare();
+        return 0;
+}
+
+int citire_r1() // functie pentru citirea primei rezistente
+{
+        int nr;
+        printf("\nIntroduceti prima rezistenta: ");
+        scanf("%d", &nr);
+        return nr;
+
+}
+
+int citire_r2()
+{
+        int numar;
+        printf("\n Introduceti a doua rezistenta: "); // functie pentru citirea celei de-a doua rezistenta
+        scanf("%d", &numar);
+        return numar;
+}
+
+int gr_serie(int r1, int r2) // functie pentru calcularea rezistentei echivalente in gruparea serie
+{
+        int grupare = 0;
+        grupare = r1 + r2;
+        return grupare;
+
+}
+
+float gr_paralel(int r1, int r2) // functie pentru calcularea rezistentei echivalente in gruparea paralel
+{
+        float grp = 0;
+        grp = (r1 * r2) / (float)(r1 + r2);
+        return grp;
+}
+
+void afisare() // functie pentru afisarea 
+{
+        printf("\n\t Rezistenta echivalenta a gruparii in serie este: %d", serie);
+        printf("\n\t Rezistenta echivalenta a gruparii in paralel este: %.3f", paralel);
+}
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 2
+// algoritm care calculeaza capacitatea echivalenta a gruparii serie respectiv gruparii paralel
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+
+float c1,c2, serie, paralel; // am declarat variabilele global
+
+float gr_serie(float, float); // prototip de functie pentru gruparea in serie
+float gr_paralel(float, float); // prototip de functie pentru gruparea in paralel
+
+int main()
+{
+        printf("\nIntroduceti prima capacitate: ");
+        scanf("%f", &c1);
+        printf("\n Introduceti a doua capacitate: ");
+        scanf("%f", &c2);
+        serie = gr_serie(c1, c2);
+        paralel = gr_paralel(c1, c2);
+        printf("\n\t Capacitatea echivalenta a gruparii serie este: %-.4f", serie); // am afisat cu aliniere la stanga si 4 zecimale
+        printf("\n\t Capacitatea echivalenta a gruparii paralel este: %-.4f", paralel);
+
+        return 0;
+}
+
+float gr_serie(float c1, float c2)
+{
+        float grupareS=0;
+        grupareS = (1.000 / c1) + (1.000 / c2); // am calculat capacitatea echivalenta pentru gruparea in serie
+        return grupareS;
+}
+
+float gr_paralel(float c1, float c2)
+{
+        float grupareP=0;
+        grupareP = c1 + c2; // // am calculat capacitatea echivalenta pentru gruparea in paralel
+        return grupareP;
+}
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 3
+//algoritm ce calculeaza ipotenuza si perimetrul unul triunghi dreptunghic
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <math.h>
+
+int l1, l2; 
+float ipotenuza, perimetru;
+
+float afl_per(int, int); // prototip de functie pentru aflarea perimetrului
+float afl_ipot(int, int); // prototip de functie pentru aflarea ipotenuzei
+
+int main()
+{
+        printf("\nIntroduceti prima latura: ");
+        scanf("%d", &l1);
+        printf("\nIntroduceti a doua latura: ");
+        scanf("%d", &l2);
+        ipotenuza = afl_ipot(l1,  l2);
+        perimetru = afl_per(l1, l2);
+        printf("\n\t Ipotenuza triunghiului este: %f", ipotenuza);
+        printf("\n\t Perimetrul triunghiului este: %f", perimetru);
+        
+
+
+
+}
+
+
+float afl_ipot(int l1, int l2)
+{
+        float ipotTr;
+        ipotTr = (float) sqrt((l1 * l1) + (l2 * l2)); // am calculat ipotenuza cu ajutorul teoremei lui Pitagora
+        return ipotTr;
+}
+
+
+float afl_per(int l1, int l2)
+{
+        float perimTr;
+        perimTr = (l1 + l2 + ipotenuza); // am calculat perimetrul care este suma laturilor triunghiului
+        return perimTr;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 4
+// algoritm care calculeaza ecuatia ax+b=0
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+int a, b;
+float sol; // am declarat global variabilele 
+
+
+float solutie_ec(int, int); // prototip de functie pentru aflarea solutiei ecuatiei
+
+int main()
+{
+    printf("\nIntroduceti prima valoare: ");
+    scanf("%d", &a); // am citit prima valoare
+    printf("\n Introduceti a doua valoare: ");
+    scanf("%d", &b); //am citit a doua valoare
+    sol = solutie_ec(a, b);
+    printf("\n\t Solutia ecuatiei este: %f", sol); // am afisat solutia
+    
+
+    return 0;
+}
+
+float solutie_ec(int a, int b)
+{
+    float x;
+    x = (-b )/ (float)a; // am calculat solutia ecuatia
+    return x;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 5
+// algoritm care calculeaza rezistenta si capacitatea echivalenta a gruparii serie respectiv gruparii paralel
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+
+int c1, c2;
+float serie_cap, paralel_cap; // am declarat variabilele global
+float gr_serie_cap(int, int); // prototip de functie pentru gruparea in serie- capacitati
+float gr_paralel_cap(int, int); // prototip de functie pentru gruparea in paralel -capacitati
+
+
+int cit_rez();
+int r1, r2;
+float paralel_rez, serie_rez;
+float gr_serie_rez(int, int); // prototip de functie pentru gruparea serie -rezistente
+float gr_paralel_rez(int, int); // prototip de functie pentru gruparea paralel-rezistente
+
+int main()
+{
+
+    printf("\nIntroduceti prima capacitate: ");
+    scanf("%d", &c1);
+    printf("\nIntroduceti a doua capacitate: ");
+    scanf("%d", &c2);
+    serie_cap = gr_serie_cap(c1, c2);
+    paralel_cap = gr_paralel_cap(c1, c2);
+    printf("\n\t Capacitatea echivalenta gruparii serie este: %f", serie_cap);
+    printf("\n\t Capacitatea echuvalenta gruparii paralel este: %f", paralel_cap);
+
+
+    printf("\nIntroduceti prima rezistenta: ");
+    scanf("%d", &r1);
+    printf("\nIntroduceti a doua rezistenta: ");
+    scanf("%d", &r2);
+    serie_rez = gr_serie_rez(r1, r2);
+    paralel_rez = gr_paralel_rez(r1, r2);
+    printf("\n\t Capacitatea echivalenta gruparii serie este: %f", serie_rez);
+    printf("\n\t Capacitatea echuvalenta gruparii paralel este: %f", paralel_rez);
+
+    return 0;
+}
+
+float gr_serie_cap(int c1, int c2)
+{
+    float grupareS = 0;
+    grupareS = (1.000 / c1) + (1.000 / c2); // am calculat capacitatea echivalenta pentru gruparea in serie
+    return grupareS;
+}
+
+float gr_paralel_cap(int c1, int c2)
+{
+    float grupareP = 0;
+    grupareP = c1 + c2; // // am calculat capacitatea echivalenta pentru gruparea in paralel
+    return grupareP;
+}
+
+
+
+
+
+
+float gr_serie_rez(int r1, int r2) // functie pentru calcularea rezistentei echivalente in gruparea serie
+{
+    int grupare = 0;
+    grupare = r1 + r2;
+    return grupare;
+
+}
+
+float gr_paralel_rez(int r1, int r2) // functie pentru calcularea rezistentei echivalente in gruparea paralel
+{
+    float grp = 0;
+    grp = (r1 * r2) / (float)(r1 + r2);
+    return grp;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 6
+// algoritm ce calculeaza media aritmetica a notelor unor studenti
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <string.h>
+
+char s1[256], s2[256]; // am declarat global sirurile de caractere
+float nota1, nota2,MA; // am declarat global cele 2 note si media aritmetica
+
+float media(float, float); // prototip de functie pentru calcularea mediei aritmetice
+
+
+
+int main()
+{
+        printf("\nIntroduceti numele primului student: ");
+        scanf("%s", &s1);
+        printf("\n Introduceti nota primului student: ");
+        scanf("%f", &nota1);
+        printf("\nIntroduceti numele celui de-al doilea student: ");
+        scanf("%s", &s2);
+        printf("\n Introduceti nota celui de-al doilea student: ");
+        scanf("%f", &nota2);
+        MA = media(nota1, nota2);
+        printf("\n\t %20s", s1);
+        printf("\n\t %-20s", s2); 
+        printf("\n\t %.2f", MA);
+        return 0;
+
+
+}
+
+float media(float nota1, float nota2) //functie ce calculeaza media aritmetica
+{
+        float media_aritmetica;
+        media_aritmetica = (nota1 + nota2) / 2;
+        return media_aritmetica;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 7
+// algoritm ce calculeaza lungimea si aria cercului 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+#define PI 3.14 // am definit constanta simbolica pi
+
+int r;
+float lungime_cerc, arie_cerc; // am declarat global aria si lungimea cercului
+
+float lungime(int); // prototip de functie pentru calcularea lungimii cercului
+float arie(int); // prototip de functie pentru calcularea ariei cercului
+
+int main()
+{
+        printf("\n Introduceti raza cercului: ");
+        scanf("%d", &r);
+        lungime_cerc = lungime(r);
+        arie_cerc = arie(r);
+        printf("\n\t Lungimea cercului este: %10.3f", lungime_cerc);
+        printf("\n\t Aria cercului este: %10.3f", arie_cerc);
+        return 0;
+
+
+}
+
+float lungime(int r) // functie pentru calcularea lungimii unui cerc
+{
+        float lcerc;
+        lcerc = 2 * PI * r; 
+        return lcerc;
+}
+
+float arie(int r) // functie pentru calcularea ariei unui cerc
+{
+        float acerc;
+        acerc = PI * r * r;
+        return acerc;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA 9
+// algoritm ce calculeaza timpul dupa care se intalnesc 2 masini
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+float v1, v2, t; // am declarat global cele doua viteze si timpul
+int d = 100; // s-a precizat faptul ca distanta este de 100 km
+
+float timp(float, float); // prototip de functie pentru calcularea timpului de intalnire
+
+int main()
+{
+        
+        printf("\nViteza primei masini este: ");
+        scanf("%f", &v1);
+        printf("\n Viteza celei de-a doua masini este: ");
+        scanf("%f", &v2);
+        t = timp(v1, v2);
+        printf("\n\t Timpul dupa care s-au intalnit cele 2 masini este: %f", t);
+
+        return 0;
+}
+
+float timp(float v1, float v2) // functie pentru calcularea timpului de intalnire
+{
+        float timp_intalnire;
+        timp_intalnire = (d / (v1 + v2))*60; // am inmultit cu 60 pentru a transforma timpul din ore in minute
+        return timp_intalnire;
+}
